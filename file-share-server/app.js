@@ -1,13 +1,14 @@
+const express = require("express");
+const mongoose = require("mongoose");
 
-const express = require('express'); 
-  
-const app = express(); 
-const PORT = 3000; 
-  
-app.listen(PORT, (error) =>{ 
-    if(!error) 
-        console.log("Server is Successfully Running,and App is listening on port "+ PORT) 
-    else 
-        console.log("Error occurred, server can't start", error); 
-    } 
-); 
+const app = express();
+const PORT = 3000;
+
+mongoose
+  .connect("mongodb://localhost:27017/file-sharing")
+  .then((result) => {
+    app.listen(PORT, () => {
+      console.log(`Server is listening on port : ${PORT}`);
+    });
+  })
+  .catch((err) => console.log(err));
