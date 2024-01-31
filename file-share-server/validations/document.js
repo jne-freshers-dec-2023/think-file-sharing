@@ -1,8 +1,8 @@
 const { body } = require("express-validator/check");
 
-const postValidation = [
-  body("title").trim().isLength({ min: 5 }),
-  // body("content").trim().isLength({ min: 5 }),
+const docsValidation = [
+  body("docName", "Doc Name should not be Empty").not().isEmpty(),
+  body("docContent", "Document content should not be Empty").not().isEmpty(),
 ];
 
-module.exports = { postValidation };
+module.exports = { docsValidation };

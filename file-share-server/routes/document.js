@@ -1,15 +1,20 @@
 const express = require("express");
-const { body } = require("express-validator/check");
-const { postValidation } = require("../validations/file");
 const isAuth = require("../middleware/is-auth");
+const docController = require("../controllers/document");
+const { docsValidation } = require("../validations/document");
 
 const router = express.Router();
 
-// router.use(isAuth)
-router.get("/docs", feedController.getPosts);
+router.use(isAuth);
 
-router.post("/doc/:docId", feedController.updatePost);
+router.post("/upload", docsValidation, docController.uploadDoc);
 
-router.delete("/doc/:docId", isAuth, feedController.deletePost);
+router.get("/docs", docController.getDocs);
+
+router.get("/download/:docId", docController.downloadDocs);
+
+router.delete("/:docId", docController.deleteDoc);
+
+router.get("/generate-link", docController.genarateDocLink);
 
 module.exports = router;

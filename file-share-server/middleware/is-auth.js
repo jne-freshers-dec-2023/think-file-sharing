@@ -14,7 +14,6 @@ module.exports = (req, res, next) => {
   console.log(token);
   let decodedToken;
   try {
-    console.log(process.env.SECRETE_KEY);
     decodedToken = jwt.verify(token, process.env.SECRETE_KEY); // decode + verify
   } catch (err) {
     err.status = 500;
@@ -26,7 +25,6 @@ module.exports = (req, res, next) => {
     error.statusCode = 401;
     throw error;
   }
-  console.log(decodedToken.userId);
   req.userId = decodedToken.userId;
   next();
 };

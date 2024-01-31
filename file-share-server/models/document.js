@@ -9,11 +9,7 @@ const documentSchema = new Schema(
       required: true,
     },
     docContent: {
-      type: String,
-      required: true,
-    },
-    docUrl: {
-      type: String,
+      type: Buffer,
       required: true,
     },
     docSize: {
