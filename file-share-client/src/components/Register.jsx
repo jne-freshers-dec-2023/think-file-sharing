@@ -64,7 +64,7 @@ const Register = () => {
       navigate("/");
 
       toast.success("User registered successfully!", {
-        position: "ttop-right",
+        position: "top-right",
       });
     } catch (error) {
       console.error("Error during Register:", error.message);
