@@ -6,6 +6,8 @@ const { Readable } = require("stream");
 const jwt = require("jsonwebtoken");
 
 exports.uploadDoc = async (req, res, next) => {
+  console.log("uploadDoc ", req.file);
+  console.log("uploadDoc ", req.body);
   const errors = validationResult(req.file);
   if (!errors.isEmpty()) {
     const error = new Error("validation failed, entered data is incorrect.");
@@ -59,6 +61,7 @@ exports.downloadDocs = async (req, res, next) => {
       "Content-Disposition",
       `attachment; filename=${document.docName}`
     );
+    res.send(document.docContent);
 
     const fileStream = new Readable();
     fileStream.push(Buffer.from(document.docContent, "base64"));
@@ -109,7 +112,12 @@ exports.deleteDoc = (req, res, next) => {
 };
 
 exports.getDocs = (req, res, next) => {
-  Document.find({ owner: req.userId })
+  const searchTerm = req.query.docName; // Assuming the search term is provided in the query parameter
+
+  const query = searchTerm
+    ? { owner: req.userId, docName: { $regex: new RegExp(searchTerm, "i") } }
+    : { owner: req.userId };
+  Document.find(query)
     .then((docs) => {
       res.status(200).json({
         message: "Fetched All Documents successfully.",
