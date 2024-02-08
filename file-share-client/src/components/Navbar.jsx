@@ -71,6 +71,7 @@ const Navbar = ({ setSearchOn }) => {
     console.log("Logout clicked");
     localStorage.removeItem("userId");
     localStorage.removeItem("token");
+    localStorage.removeItem("isAuthenticated", false);
     navigate("/");
 
     toast.success("Logout successful", {
