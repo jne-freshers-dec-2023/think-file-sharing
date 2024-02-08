@@ -32,6 +32,7 @@ const Login = () => {
       if (statusCode === 200 && data && data.token) {
         localStorage.setItem("userId", data.userId);
         localStorage.setItem("token", data.token);
+        localStorage.setItem("isAuthenticated", true);
 
         toast.success("Login successful!");
 
